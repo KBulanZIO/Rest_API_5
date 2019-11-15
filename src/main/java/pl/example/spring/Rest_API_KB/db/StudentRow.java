@@ -1,19 +1,23 @@
 package pl.example.spring.Rest_API_KB.db;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class StudentRow {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String number;
     private String grupa;
 
-    // Czy ma być też grupa?
-    public StudentRow(long id, String name, String number, String grupa) {
-        this.id = id;
+    protected StudentRow() {}
+
+
+    public StudentRow(String name, String number, String grupa) {
         this.name = name;
         this.number = number;
         this.grupa = grupa;

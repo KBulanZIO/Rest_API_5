@@ -1,6 +1,7 @@
 package pl.example.spring.Rest_API_KB;
 
 import io.vavr.collection.List;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class StudentServiceTest {
         final Student created2  = service.addStudent(new NewStudent("Krzysztof","2","IP"));
         assertEquals(2,service.getStudents().size());
         assertNotEquals(created1.id,created2.id);
+    }
+
+    @After
+    public void cleanAfterTest() {
+        this.repository.deleteAll();
     }
 
 }
