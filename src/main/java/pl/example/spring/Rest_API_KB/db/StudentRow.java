@@ -1,5 +1,7 @@
 package pl.example.spring.Rest_API_KB.db;
 
+import pl.example.spring.Rest_API_KB.Student;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,4 +56,13 @@ public class StudentRow {
     public void setGroup(String group) {
         this.grupa = grupa;
     }
+
+    public Student toStudent(){
+        return new Student(
+                this.getId(),
+                this.getName(),
+                this.getNumber(),
+                this.getGroup());
+    }
+
 }
