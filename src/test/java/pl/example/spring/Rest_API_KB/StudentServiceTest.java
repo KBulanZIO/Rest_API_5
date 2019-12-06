@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.example.spring.Rest_API_KB.db.ScoreRepository;
 import pl.example.spring.Rest_API_KB.db.StudentRepository;
 
 import static org.junit.Assert.*;
@@ -16,23 +17,26 @@ import static org.junit.Assert.*;
 public class StudentServiceTest {
 
     @Autowired
-    private StudentRepository repository;
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private ScoreRepository scoreRepository;
 
     @Test
     public void getEmptyList() {
-        final StudentService service = new StudentService(repository);
+        final StudentService service = new StudentService(studentRepository,scoreRepository);
     }
 
     @Test
     public void addStudent() {
-        final StudentService service = new StudentService(repository);
+        final StudentService service = new StudentService(studentRepository,scoreRepository);
         final Student created=service.addStudent(new NewStudent("Student1","1-2-3","IP"));
         assertNotNull(created);
     }
 
     @Test
     public void addStudentIsReturned() {
-        final StudentService service = new StudentService(repository);
+        final StudentService service = new StudentService(studentRepository,scoreRepository);
         final Student created=service.addStudent(new NewStudent("Student1","1-2-3","IP"));
         final List<Student> all = service.getStudents();
         assertEquals("Student1",all.get(0).name);
@@ -40,7 +44,7 @@ public class StudentServiceTest {
 
     @Test
     public void addStudentHasNewId() {
-        final StudentService service = new StudentService(repository);
+        final StudentService service = new StudentService(studentRepository,scoreRepository);
         final Student created1  = service.addStudent(new NewStudent("Andrew","1","IP"));
         final Student created2  = service.addStudent(new NewStudent("Krzysztof","2","IP"));
         assertEquals(2,service.getStudents().size());
@@ -49,7 +53,7 @@ public class StudentServiceTest {
 
     @After
     public void cleanAfterTest() {
-        this.repository.deleteAll();
+        this.studentRepository.deleteAll();
     }
 
 }
